@@ -1,16 +1,38 @@
 import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { Menu, X, ChevronDown, Phone, Mail, MapPin } from "lucide-react";
 import { HeaderLinks } from "../constants/navLinks";
-import { Link, NavLink } from "react-router";
-import { AiOutlineMenu } from "react-icons/ai";
-import { AiOutlineClose } from "react-icons/ai";
+import { useLocation, useNavigate } from "react-router";
+
+// Mock navigation links
+
+
+// Mock logo
+const logoUrl = "https://hexagroup.ae/wp-content/uploads/2024/03/cropped-cropped-HEXA-LOGO-new.pdf.png";
 
 const Header = () => {
+  const navigate = useNavigate()
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation()
+  const currentPath = location.pathname.split("/")[1] || "/";
+  const [activeLink, setActiveLink] = useState(currentPath || "/");
+  const [showTopBar, setShowTopBar] = useState(true);
+
+  useEffect(()=>{
+    
+    setActiveLink(currentPath)
+  },[location.pathname , currentPath])
+  
+  const { scrollY } = useScroll();
+  const headerY = useTransform(scrollY, [0, 100], [0, -5]);
+  const logoScale = useTransform(scrollY, [0, 100], [1, 0.9]);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 20);
+      setShowTopBar(scrollPosition < 100);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -21,62 +43,283 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleLinkClick = (path) => {
+    setActiveLink(path);
+    navigate(`${path}`)
+    setIsOpen(false);
+  };
+
+  // Navigation variants
+  const navVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const linkVariants = {
+    hidden: { opacity: 0, y: -10 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const mobileMenuVariants = {
+    closed: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    },
+    open: {
+      opacity: 1,
+      height: "auto",
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const mobileItemVariants = {
+    closed: { opacity: 0, x: -20 },
+    open: { opacity: 1, x: 0 }
+  };
+
   return (
-    <div
-      className={`fixed top-0 left-0 w-full h-fit flex items-center z-50 transition-all duration-300 
-        backdrop-blur-md ${
-          isScrolled
-            ? "bg-white text-gray-500 shadow-md"
-            : "bg-transparent text-white"
-        }`}
-    >
-      <div className="max-w-screen-xl mx-auto mt-0 w-full px-4 py-4 flex justify-between items-center">
-        {/* logo */}
-        <div className="logo ">
-          <img
-            src="https://hexagroup.ae/wp-content/uploads/2024/03/cropped-cropped-HEXA-LOGO-new.pdf.png"
-            alt="logo"
-            className={`transition-all duration-300  ${
-              isScrolled ? "md:h-16 h-12 w-auto" : "md:h-20 h-16 w-auto"
-            }`}
-          />
-        </div>
-
-        {/* Desktop nav */}
-
-        <div className=" hidden lg:flex  ">
-          <nav className="w-fit h-fit flex flex-row items-center ">
-            {HeaderLinks.map((link, index) => (
-              <NavLink
-                key={index}
-                to={link.path}
-                className={({ isActive }) =>
-                  `text-base font-semibold uppercase py-1 px-4 hover:text-shadow-xs hover:text-shadow-current transition-all duration-300 ${
-                    isScrolled ? "text-gray-700" : "text-red-600"
-                  } ${isActive ? "bg-red-500 text-white " : ""}`
-                }
-              >
-                {link.name}
-              </NavLink>
-            ))}
-          </nav>
-        </div>
-
-        {/* Mobile nav button */}
-        <div className="lg:hidden border-2 border-gray-400 aspect-square rounded-full  overflow-hidden relative group ">
-          <div className="absolute inset-0 bg-gray-400 rounded-full scale-0 group-hover:scale-105 transition-transform duration-300 origin-center"></div>
-
-          <button
-            onClick={() => handleMenuClick()}
-            className={`text-gray-400 group-hover:text-white p-2 transition-transform duration-400 ${
-              isOpen ? "rotate-180" : "rotate-0"
-            }`}
+    <>
+      {/* Top Contact Bar */}
+      <AnimatePresence>
+        {showTopBar && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-0 left-0 w-full bg-gradient-to-r from-gray-900 to-gray-800 text-white text-xs py-2 z-50 overflow-hidden"
           >
-            {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
-          </button>
+            <div className="max-w-screen-xl mx-auto px-4 flex justify-between items-center">
+              <motion.div 
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="flex items-center gap-4"
+              >
+                <span className="flex items-center gap-1">
+                  <Phone className="w-3 h-3" />
+                  +971 50 123 4567
+                </span>
+                <span className="hidden md:flex items-center gap-1">
+                  <Mail className="w-3 h-3" />
+                  info@hexaproduction.ae
+                </span>
+              </motion.div>
+              <motion.div
+                initial={{ x: 20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="hidden sm:flex items-center gap-1"
+              >
+                <MapPin className="w-3 h-3" />
+                Dubai, UAE
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main Header */}
+      <motion.header
+        style={{ y: headerY }}
+        className={`fixed left-0 w-full z-40 transition-all duration-500 ${
+          showTopBar ? 'top-8' : 'top-0'
+        }`}
+      >
+        <div
+          className={`backdrop-blur-xl border-b transition-all duration-500 ${
+            isScrolled
+              ? "bg-white/95 text-gray-800 shadow-lg border-gray-200/50"
+              : "bg-black/20 text-white border-white/10"
+          }`}
+        >
+          <div className="max-w-screen-xl mx-auto px-4">
+            <div className="flex justify-between items-center h-20">
+              {/* Logo */}
+              <motion.div 
+                style={{ scale: logoScale }}
+                className="logo flex items-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <img
+                  src={logoUrl}
+                  alt="Hexa Production Logo"
+                  className={`transition-all duration-500 ${
+                    isScrolled ? "h-12 w-auto" : "h-16 w-auto"
+                  }`}
+                />
+                <div className="ml-3 hidden sm:block">
+                  <h1 className={`font-bold text-lg transition-colors duration-300 ${
+                    isScrolled ? "text-gray-800" : "text-white"
+                  }`}>
+                    HEXA
+                  </h1>
+                  <p className={`text-xs transition-colors duration-300 ${
+                    isScrolled ? "text-gray-600" : "text-gray-300"
+                  }`}>
+                    PRODUCTION
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Desktop Navigation */}
+              <motion.nav
+                variants={navVariants}
+                initial="hidden"
+                animate="visible"
+                className="hidden lg:flex items-center"
+              >
+                <div className="flex items-center bg-white/5 backdrop-blur-sm rounded-full px-2 py-1 border border-white/10">
+                  {HeaderLinks.map((link, index) => (
+                    <motion.button
+                      key={index}
+                      variants={linkVariants}
+                      onClick={() => handleLinkClick(link.path)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`relative px-6 py-3 rounded-full text-sm font-semibold uppercase tracking-wide transition-all duration-300 ${
+                        activeLink === link.path
+                          ? "text-white"
+                          : isScrolled 
+                          ? "text-gray-700 hover:text-red-600" 
+                          : "text-white/80 hover:text-white"
+                      }`}
+                    >
+                      {activeLink === link.path && (
+                        <motion.div
+                          layoutId="activeTab"
+                          className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-600 rounded-full shadow-lg"
+                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                        />
+                      )}
+                      <span className="relative z-10">{link.name}</span>
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.nav>
+
+              {/* CTA Button (Desktop) */}
+              <motion.button
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 10px 30px rgba(239, 68, 68, 0.3)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="hidden lg:block px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-full hover:from-red-600 hover:to-red-700 transition-all duration-300 shadow-lg"
+              >
+                Get Quote
+              </motion.button>
+
+              {/* Mobile Menu Button */}
+              <motion.button
+                onClick={handleMenuClick}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`lg:hidden relative p-3 rounded-full transition-all duration-300 ${
+                  isScrolled 
+                    ? "bg-gray-100 hover:bg-gray-200" 
+                    : "bg-white/10 hover:bg-white/20 backdrop-blur-sm"
+                }`}
+              >
+                <motion.div
+                  animate={{ rotate: isOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {isOpen ? (
+                    <X className={`w-6 h-6 ${isScrolled ? "text-gray-800" : "text-white"}`} />
+                  ) : (
+                    <Menu className={`w-6 h-6 ${isScrolled ? "text-gray-800" : "text-white"}`} />
+                  )}
+                </motion.div>
+              </motion.button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              variants={mobileMenuVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              className="lg:hidden bg-white/95 backdrop-blur-xl border-b border-gray-200/50 shadow-xl overflow-hidden"
+            >
+              <div className="max-w-screen-xl mx-auto px-4 py-6">
+                <motion.nav className="flex flex-col space-y-2">
+                  {HeaderLinks.map((link, index) => (
+                    <motion.button
+                      key={index}
+                      variants={mobileItemVariants}
+                      onClick={() => handleLinkClick(link.path)}
+                      whileHover={{ x: 10, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`text-left px-6 py-4 rounded-xl text-lg font-semibold uppercase tracking-wide transition-all duration-300 ${
+                        activeLink === link.path
+                          ? "bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg"
+                          : "text-gray-700 hover:bg-gray-100 hover:text-red-600"
+                      }`}
+                    >
+                      {link.name}
+                    </motion.button>
+                  ))}
+                </motion.nav>
+
+                {/* Mobile CTA Section */}
+                <motion.div
+                  variants={mobileItemVariants}
+                  className="mt-6 pt-6 border-t border-gray-200"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full px-6 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-xl shadow-lg hover:from-red-600 hover:to-red-700 transition-all duration-300"
+                  >
+                    Get Your Free Quote
+                  </motion.button>
+
+                  {/* Mobile Contact Info */}
+                  <div className="mt-4 grid grid-cols-1 gap-3 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-red-500" />
+                      <span>+971 50 123 4567</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-red-500" />
+                      <span>info@hexaproduction.ae</span>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
+
+      {/* Spacer to prevent content from hiding behind fixed header */}
+      <div className={`transition-all duration-500 ${showTopBar ? 'h-28' : 'h-20'}`} />
+    </>
   );
 };
 

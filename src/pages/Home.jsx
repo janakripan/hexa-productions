@@ -1,6 +1,7 @@
 import React from 'react'
 import Hero from '../components/home/Hero'
 import Summary from '../components/home/Summary'
+import Services from '../components/home/Services'
 
 
 const Home = () => {
@@ -11,6 +12,9 @@ const Home = () => {
      </section>
      <section id='summary' className='w-full  h-fit'>
         <Summary/>
+     </section>
+     <section className='w-full min-h-screen h-fit'>
+      <Services/>
      </section>
       
     </div>

@@ -4,10 +4,10 @@ import Header from '../components/Header'
 
 const HomeLayout = () => {
   return (
-    <div className='relative'>
+    <div className='relative '>
     <Header/>
 
-    <div id='detail'>
+    <div id='detail' >
         <Outlet/>
     </div>
       
