@@ -267,7 +267,7 @@ const Hero = () => {
             </motion.button>
 
             <motion.button
-            
+
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="group flex items-center gap-3 px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-full backdrop-blur-sm hover:bg-white/10 hover:border-white/50 transition-all duration-300"
@@ -278,7 +278,7 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Stats/Features */}
+        {/* Stats/Features
         <motion.div
           variants={fadeInUp(1.4, 0.8)}
           initial="hidden"
@@ -303,13 +303,13 @@ const Hero = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </motion.div> */}
       </motion.div>
 
       {/* Enhanced Scroll Indicator */}
       <motion.div 
         style={{ opacity }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+        className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20"
       >
         <motion.a
           href="#summary"
@@ -321,7 +321,7 @@ const Hero = () => {
             backdropFilter: "blur(10px)"
           }}
           whileTap={{ scale: 0.9 }}
-          className="flex flex-col items-center gap-2 text-white p-4 rounded-full border-2 border-white/30 backdrop-blur-sm hover:border-red-500/50 transition-all duration-300 group"
+          className="flex flex-col w-full h-full items-center gap-2 text-white p-2 px-4 rounded-full border-2 border-white/30 backdrop-blur-sm hover:border-red-500/50 transition-all duration-300 group"
         >
           <span className="text-xs font-medium opacity-80 group-hover:opacity-100">
             Discover More
