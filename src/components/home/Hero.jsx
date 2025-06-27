@@ -2,7 +2,7 @@ import React from "react";
 import heroBanner from "../../assets/images/home/hero-banner.jpg";
 import { motion } from "framer-motion";
 import "../../Animations/glow.css";
-import { containerVariant, letterVariant } from "../../Animations/animations";
+import { containerVariant, fadeInUp, letterVariant, upAndDown } from "../../Animations/animations";
 import { FaLongArrowAltDown } from "react-icons/fa";
 
 const finalWord = "Dreams";
@@ -23,9 +23,9 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-20 flex items-center justify-center h-full px-4 text-center">
         <motion.h1
-          initial={{ y: 60, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
+         variants={fadeInUp(1, 0.5)}
+         initial="hidden"
+         animate="visible"
           className="text-white text-4xl md:text-6xl font-bold tracking-wide uppercase"
         >
           Crafting Your{""}
@@ -50,12 +50,8 @@ const Hero = () => {
       <div className="w-full h-fit py-2 flex justify-center z-20 absolute bottom-4 ">
         <motion.a
           href="#summary"
-          animate={{ y: [0, -20, 0] }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          animate="animate"
+          variants={upAndDown}
           className="text-white text-4xl rounded-full   p-1 hover:bg-white hover:text-red-500 transition-all duration-300"
         >
           <FaLongArrowAltDown />

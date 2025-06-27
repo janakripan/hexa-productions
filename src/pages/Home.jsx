@@ -1,5 +1,6 @@
 import React from 'react'
 import Hero from '../components/home/Hero'
+import Summary from '../components/home/Summary'
 
 
 const Home = () => {
@@ -8,8 +9,8 @@ const Home = () => {
      <section className='w-full h-screen relative overflow-hidden'>
       <Hero/>
      </section>
-     <section id='summary' className='w-full h-screen bg-red-400'>
-
+     <section id='summary' className='w-full  h-fit'>
+        <Summary/>
      </section>
       
     </div>
