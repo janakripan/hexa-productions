@@ -165,18 +165,7 @@ const Header = () => {
                     isScrolled ? "h-12 w-auto" : "h-16 w-auto"
                   }`}
                 />
-                <div className="ml-3 hidden sm:block">
-                  <h1 className={`font-bold text-lg transition-colors duration-300 ${
-                    isScrolled ? "text-gray-800" : "text-white"
-                  }`}>
-                    HEXA
-                  </h1>
-                  <p className={`text-xs transition-colors duration-300 ${
-                    isScrolled ? "text-gray-600" : "text-gray-300"
-                  }`}>
-                    PRODUCTION
-                  </p>
-                </div>
+                
               </motion.div>
 
               {/* Desktop Navigation */}

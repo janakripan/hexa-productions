@@ -53,7 +53,7 @@ const Services = () => {
           {/* Main heading */}
           <motion.h2
             variants={fadeInUp(0.4, 0)}
-            className="font-light text-4xl md:text-5xl lg:text-6xl text-gray-800 uppercase tracking-wide max-w-4xl"
+            className="font-light text-3xl md:text-4xl lg:text-5xl text-gray-800 uppercase tracking-wide max-w-4xl"
           >
             our{" "}
             <span className="font-bold bg-gradient-to-r from-red-500 via-red-600 to-red-500 bg-clip-text text-transparent relative">
@@ -91,7 +91,7 @@ const Services = () => {
             {servicesData.map((sv, idx) => (
               <motion.div
                 key={idx}
-                variants={fadeInUp(0.6, idx * 0.2)}
+                variants={fadeInUp(0.6, idx * 0.4)}
                 className="w-full h-full"
                 whileHover={{
                   scale: 1.02,

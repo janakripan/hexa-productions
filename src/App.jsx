@@ -3,9 +3,9 @@ import { Route, Routes } from 'react-router'
 import HomeLayout from './Layouts/HomeLayout'
 import Home from './pages/Home'
 import About from './pages/About'
-import Services from './pages/Services'
 import Gallery from './pages/Gallery'
 import Contact from './pages/Contact'
+import ServicesPage from './pages/ServicesPage'
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
       <Route path='/' element={ <HomeLayout/> } >
         <Route index element={<Home/>}/>
         <Route path='about' element={<About/>} />
-        <Route path='services' element={<Services/>} />
+        <Route path='services' element={<ServicesPage/>} />
         <Route path='gallery' element={<Gallery/>} />
         <Route path='contact' element={<Contact/>} />
       </Route>

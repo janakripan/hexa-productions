@@ -1,4 +1,3 @@
-import { delay } from "framer-motion";
 
 // only for hero container
 export const containerVariant = {
