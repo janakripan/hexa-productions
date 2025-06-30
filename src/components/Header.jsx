@@ -7,7 +7,7 @@ import {
 } from "framer-motion";
 import { Menu, X, ChevronDown, Phone, Mail, MapPin } from "lucide-react";
 import { HeaderLinks } from "../constants/navLinks";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 
 const logoUrl =
   "https://hexagroup.ae/wp-content/uploads/2024/03/cropped-cropped-HEXA-LOGO-new.pdf.png";
@@ -15,14 +15,15 @@ const logoUrl =
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
   const currentPath = window.location.hash || "#home";
   const [activeLink, setActiveLink] = useState(currentPath);
-  const [showTopBar, setShowTopBar] = useState(true);
 
   useEffect(() => {
-    setActiveLink(window.location.hash || "#home");
-  }, [location]);
+     if (!window.location.hash) {
+    window.location.hash = "#home"; // Sets the hash
+  }
+  setActiveLink(window.location.hash || "#home");
+  }, []);
 
   const { scrollY } = useScroll();
   const headerY = useTransform(scrollY, [0, 100], [0, -5]);
@@ -31,8 +32,8 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 20);
-      setShowTopBar(scrollPosition < 100);
+      setIsScrolled(scrollPosition > 30);
+      
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -97,59 +98,19 @@ const Header = () => {
   };
 
   return (
-    <>
-      {/* Top Contact Bar */}
-      <AnimatePresence>
-        {showTopBar && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-0 left-0 w-full bg-gradient-to-r from-gray-900 to-gray-800 text-white text-xs py-2 z-50 overflow-hidden"
-          >
-            <div className="max-w-screen-xl mx-auto px-4 flex justify-between items-center">
-              <motion.div
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="flex items-center gap-4"
-              >
-                <span className="flex items-center gap-1">
-                  <Phone className="w-3 h-3" />
-                  +971 50 123 4567
-                </span>
-                <span className="hidden md:flex items-center gap-1">
-                  <Mail className="w-3 h-3" />
-                  info@hexaproduction.ae
-                </span>
-              </motion.div>
-              <motion.div
-                initial={{ x: 20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="hidden sm:flex items-center gap-1"
-              >
-                <MapPin className="w-3 h-3" />
-                Dubai, UAE
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div  >
+  
 
       {/* Main Header */}
       <motion.header
         style={{ y: headerY }}
-        className={`fixed left-0 w-full z-40 transition-all duration-500 ${
-          showTopBar ? "top-8" : "top-0"
-        }`}
+        className={`fixed left-0 w-full z-40 transition-all duration-500 `}
       >
         <div
           className={`backdrop-blur-xl border-b transition-all duration-500 ${
             isScrolled
               ? "bg-white/95 text-gray-800 shadow-lg border-gray-200/50"
-              : "bg-black/20 text-white border-white/10"
+              : "bg-transparent text-white border-transparent"
           }`}
         >
           <div className="max-w-screen-xl mx-auto px-4">
@@ -320,13 +281,9 @@ const Header = () => {
         </AnimatePresence>
       </motion.header>
 
-      {/* Spacer to prevent content from hiding behind fixed header */}
-      <div
-        className={`transition-all duration-500 ${
-          showTopBar ? "h-28" : "h-20"
-        }`}
-      />
-    </>
+     
+      
+    </div>
   );
 };
 
