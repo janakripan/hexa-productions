@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, Play, Sparkles, Star } from "lucide-react";
 import { useNavigate } from "react-router";
+import heroBanner from '../../../public/videos/hero banner video.mp4'
 
-// Mock hero banner image
-const heroBanner = "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop&q=80";
+// Mock hero banner im
 
 // Enhanced animation variants
 const containerVariant = {
@@ -105,7 +105,15 @@ const Hero = () => {
 
   const handleExploreClick = (path) =>{
     navigate(`${path}`)
+
   }
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 3.0; // set to 2x speed
+    }
+  }, []);
 
   return (
     <div className="relative w-full min-h-screen h-fit lg:overflow-hidden ">
@@ -114,11 +122,15 @@ const Hero = () => {
         style={{ y }}
         className="absolute inset-0 w-full h-[120%] -top-[10%]"
       >
-        <img
-          src={heroBanner}
-          alt="Professional workspace showcasing creative excellence"
-          className="w-full h-full object-cover scale-110"
-        />
+         <video
+        ref={videoRef}
+        src={heroBanner} // ensure it's in public/videos
+        className="w-full h-full object-cover scale-110"
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
       </motion.div>
 
       {/* Dynamic Gradient Overlay */}
