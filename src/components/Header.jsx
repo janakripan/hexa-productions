@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { Menu, X, ChevronDown, Phone, Mail, MapPin } from "lucide-react";
 import { HeaderLinks } from "../constants/navLinks";
 import { useLocation, useNavigate } from "react-router";
 
-// Mock navigation links
-
-
-// Mock logo
-const logoUrl = "https://hexagroup.ae/wp-content/uploads/2024/03/cropped-cropped-HEXA-LOGO-new.pdf.png";
+const logoUrl =
+  "https://hexagroup.ae/wp-content/uploads/2024/03/cropped-cropped-HEXA-LOGO-new.pdf.png";
 
 const Header = () => {
-  const navigate = useNavigate()
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation()
-  const currentPath = location.pathname.split("/")[1] || "/";
-  const [activeLink, setActiveLink] = useState(currentPath || "/");
+  const location = useLocation();
+  const currentPath = window.location.hash || "#home";
+  const [activeLink, setActiveLink] = useState(currentPath);
   const [showTopBar, setShowTopBar] = useState(true);
 
-  useEffect(()=>{
-    
-    setActiveLink(currentPath)
-  },[location.pathname , currentPath])
-  
+  useEffect(() => {
+    setActiveLink(window.location.hash || "#home");
+  }, [location]);
+
   const { scrollY } = useScroll();
   const headerY = useTransform(scrollY, [0, 100], [0, -5]);
   const logoScale = useTransform(scrollY, [0, 100], [1, 0.9]);
@@ -43,28 +43,31 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleLinkClick = (path) => {
-    setActiveLink(path);
-    navigate(`${path}`)
-    setIsOpen(false);
+  const handleLinkClick = (hash) => {
+    const element = document.querySelector(hash);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveLink(hash);
+      setIsOpen(false); // close mobile menu
+    }
   };
 
   // Navigation variants
   const navVariants = {
     hidden: { opacity: 0, y: -20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
+        delayChildren: 0.2,
+      },
+    },
   };
 
   const linkVariants = {
     hidden: { opacity: 0, y: -10 },
-    visible: { opacity: 1, y: 0 }
+    visible: { opacity: 1, y: 0 },
   };
 
   const mobileMenuVariants = {
@@ -73,8 +76,8 @@ const Header = () => {
       height: 0,
       transition: {
         duration: 0.3,
-        ease: "easeInOut"
-      }
+        ease: "easeInOut",
+      },
     },
     open: {
       opacity: 1,
@@ -83,14 +86,14 @@ const Header = () => {
         duration: 0.4,
         ease: "easeOut",
         staggerChildren: 0.1,
-        delayChildren: 0.1
-      }
-    }
+        delayChildren: 0.1,
+      },
+    },
   };
 
   const mobileItemVariants = {
     closed: { opacity: 0, x: -20 },
-    open: { opacity: 1, x: 0 }
+    open: { opacity: 1, x: 0 },
   };
 
   return (
@@ -106,7 +109,7 @@ const Header = () => {
             className="fixed top-0 left-0 w-full bg-gradient-to-r from-gray-900 to-gray-800 text-white text-xs py-2 z-50 overflow-hidden"
           >
             <div className="max-w-screen-xl mx-auto px-4 flex justify-between items-center">
-              <motion.div 
+              <motion.div
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
@@ -139,7 +142,7 @@ const Header = () => {
       <motion.header
         style={{ y: headerY }}
         className={`fixed left-0 w-full z-40 transition-all duration-500 ${
-          showTopBar ? 'top-8' : 'top-0'
+          showTopBar ? "top-8" : "top-0"
         }`}
       >
         <div
@@ -152,7 +155,7 @@ const Header = () => {
           <div className="max-w-screen-xl mx-auto px-4">
             <div className="flex justify-between items-center h-20">
               {/* Logo */}
-              <motion.div 
+              <motion.div
                 style={{ scale: logoScale }}
                 className="logo flex items-center"
                 whileHover={{ scale: 1.05 }}
@@ -165,7 +168,6 @@ const Header = () => {
                     isScrolled ? "h-12 w-auto" : "h-16 w-auto"
                   }`}
                 />
-                
               </motion.div>
 
               {/* Desktop Navigation */}
@@ -186,8 +188,8 @@ const Header = () => {
                       className={`relative px-6 py-3 rounded-full text-sm font-semibold uppercase tracking-wide transition-all duration-300 ${
                         activeLink === link.path
                           ? "text-white"
-                          : isScrolled 
-                          ? "text-gray-700 hover:text-red-600" 
+                          : isScrolled
+                          ? "text-gray-700 hover:text-red-600"
                           : "text-white/80 hover:text-white"
                       }`}
                     >
@@ -195,7 +197,11 @@ const Header = () => {
                         <motion.div
                           layoutId="activeTab"
                           className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-600 rounded-full shadow-lg"
-                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                          transition={{
+                            type: "spring",
+                            bounce: 0.2,
+                            duration: 0.6,
+                          }}
                         />
                       )}
                       <span className="relative z-10">{link.name}</span>
@@ -209,9 +215,9 @@ const Header = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 10px 30px rgba(239, 68, 68, 0.3)"
+                  boxShadow: "0 10px 30px rgba(239, 68, 68, 0.3)",
                 }}
                 whileTap={{ scale: 0.95 }}
                 className="hidden lg:block px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-full hover:from-red-600 hover:to-red-700 transition-all duration-300 shadow-lg"
@@ -225,8 +231,8 @@ const Header = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={`lg:hidden relative p-3 rounded-full transition-all duration-300 ${
-                  isScrolled 
-                    ? "bg-gray-100 hover:bg-gray-200" 
+                  isScrolled
+                    ? "bg-gray-100 hover:bg-gray-200"
                     : "bg-white/10 hover:bg-white/20 backdrop-blur-sm"
                 }`}
               >
@@ -235,9 +241,17 @@ const Header = () => {
                   transition={{ duration: 0.3 }}
                 >
                   {isOpen ? (
-                    <X className={`w-6 h-6 ${isScrolled ? "text-gray-800" : "text-white"}`} />
+                    <X
+                      className={`w-6 h-6 ${
+                        isScrolled ? "text-gray-800" : "text-white"
+                      }`}
+                    />
                   ) : (
-                    <Menu className={`w-6 h-6 ${isScrolled ? "text-gray-800" : "text-white"}`} />
+                    <Menu
+                      className={`w-6 h-6 ${
+                        isScrolled ? "text-gray-800" : "text-white"
+                      }`}
+                    />
                   )}
                 </motion.div>
               </motion.button>
@@ -307,7 +321,11 @@ const Header = () => {
       </motion.header>
 
       {/* Spacer to prevent content from hiding behind fixed header */}
-      <div className={`transition-all duration-500 ${showTopBar ? 'h-28' : 'h-20'}`} />
+      <div
+        className={`transition-all duration-500 ${
+          showTopBar ? "h-28" : "h-20"
+        }`}
+      />
     </>
   );
 };

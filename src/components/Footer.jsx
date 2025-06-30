@@ -25,7 +25,7 @@ const Footer = () => {
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
         >
           {/* logo and socialmedia */}
-          <div className="w-full h-fit flex flex-col items-center">
+          <div className="w-full h-fit flex md:px-40 lg:px-0 flex-col items-center">
             {/* logo */}
             <motion.div 
               className="w-full h-fit"
@@ -115,7 +115,7 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <motion.h5 
-              className=" text-gray-500 text-2xl font-semibold "
+              className=" text-gray-600 text-2xl font-semibold "
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -155,7 +155,7 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             <motion.h5 
-              className=" text-gray-500 text-2xl font-semibold "
+              className=" text-gray-600 text-2xl font-semibold "
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -195,7 +195,7 @@ const Footer = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
             >
             <motion.h5 
-              className=" text-gray-500 text-2xl font-semibold "
+              className=" text-gray-600 text-2xl font-semibold "
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

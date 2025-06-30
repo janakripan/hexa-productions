@@ -12,23 +12,23 @@ import img6 from '../assets/images/footer gallery/H8526d727e-300x300-5.jpg'
 export const HeaderLinks = [
     {
         name: "Home",
-        path: '/'
+        path: "#home"
     },
      {
         name: "About Us",
-        path: 'about'
+        path: '#about'
     },
      {
         name: "Services",
-        path: 'services'
+        path: '#services'
     },
      {
-        name: "Gallery",
-        path: 'gallery'
+        name: "Features",
+        path: '#features'
     },
      {
         name: "Contact Us",
-        path: 'contact'
+        path: '#contact'
     },
 
 ]

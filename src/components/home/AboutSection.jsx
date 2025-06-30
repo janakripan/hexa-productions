@@ -101,7 +101,7 @@ const AboutSection = () => {
                 className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2, duration: 0.6 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
                 viewport={{ once: true, amount: 0.3 }}
               >
                 <button className="bg-white text-gray-800 px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold hover:text-white hover:bg-red-500 transition-colors duration-300 text-sm md:text-base w-full sm:w-auto">
@@ -119,7 +119,7 @@ const AboutSection = () => {
             className="w-full lg:w-1/2 h-auto lg:h-full flex flex-col justify-start lg:justify-center px-0 lg:px-8 py-0 lg:py-0"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.4, duration: 0.8 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
             viewport={{ once: true, amount: 0.2 }}
           >
            
@@ -131,7 +131,7 @@ const AboutSection = () => {
                   className="backdrop-brightness-75 backdrop-blur-sm rounded-lg p-3 sm:p-4 lg:p-4 border border-white/20 shadow-lg"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.8 + index * 0.1, duration: 0.5 }}
+                  transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
                   viewport={{ once: true, amount: 0.2 }}
                 >
                   <h4 className="text-base sm:text-lg md:text-xl font-semibold mb-2 text-amber-300">
