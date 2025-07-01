@@ -30,16 +30,18 @@ const Contact = () => {
       <motion.div 
         className="max-w-7xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden"
         initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
+         viewport={{amount:0.3, once:true}}
       >
         <div className="flex flex-col lg:flex-row min-h-[700px]">
           {/* Left Side - Animated Illustration */}
           <motion.div 
             className="lg:w-1/2 bg-gradient-to-br from-red-500 via-red-600 to-red-700 p-8 flex flex-col justify-center items-center relative overflow-hidden"
             initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
+             viewport={{amount:0.3, once:true}}
           >
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
@@ -52,8 +54,9 @@ const Contact = () => {
             <motion.div 
               className="text-center z-10"
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
+               viewport={{amount:0.3, once:true}}
             >
               {/* Animated SVG Illustration */}
               <motion.svg
@@ -62,8 +65,9 @@ const Contact = () => {
                 viewBox="0 0 300 300"
                 className="mb-8"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                whileInView={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.6 }}
+                 viewport={{amount:0.3, once:true}}
               >
                 {/* Phone/Contact Icon */}
                 <motion.circle
@@ -75,8 +79,9 @@ const Contact = () => {
                   strokeWidth="2"
                   strokeDasharray="10,5"
                   initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1, rotate: 360 }}
+                  whileInView={{ pathLength: 1, rotate: 360 }}
                   transition={{ duration: 2, delay: 0.8, ease: "easeInOut" }}
+                   viewport={{amount:0.3, once:true}}
                 />
                 
                 <motion.rect
@@ -87,8 +92,9 @@ const Contact = () => {
                   rx="15"
                   fill="white"
                   initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
+                  whileInView={{ scale: 1 }}
                   transition={{ duration: 0.6, delay: 1 }}
+                   viewport={{amount:0.3, once:true}}
                 />
                 
                 <motion.rect
@@ -99,8 +105,9 @@ const Contact = () => {
                   rx="5"
                   fill="#ef4444"
                   initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
+                  whileInView={{ scale: 1 }}
                   transition={{ duration: 0.4, delay: 1.2 }}
+                   viewport={{amount:0.3, once:true}}
                 />
                 
                 {/* Message bubbles */}
@@ -110,8 +117,9 @@ const Contact = () => {
                   r="15"
                   fill="white"
                   initial={{ scale: 0, x: 50 }}
-                  animate={{ scale: 1, x: 0 }}
+                  whileInView={{ scale: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 1.4 }}
+                   viewport={{amount:0.3, once:true}}
                 />
                 
                 <motion.circle
@@ -120,16 +128,18 @@ const Contact = () => {
                   r="12"
                   fill="white"
                   initial={{ scale: 0, x: -50 }}
-                  animate={{ scale: 1, x: 0 }}
+                  whileInView={{ scale: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 1.6 }}
+                   viewport={{amount:0.3, once:true}}
                 />
               </motion.svg>
 
               <motion.h2 
                 className="text-4xl font-bold text-white mb-4"
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.8 }}
+                 viewport={{amount:0.3, once:true}}
               >
                 Let's Connect
               </motion.h2>
@@ -137,8 +147,9 @@ const Contact = () => {
               <motion.p 
                 className="text-red-100 text-lg leading-relaxed max-w-sm"
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 2 }}
+                 viewport={{amount:0.3, once:true}}
               >
                 Ready to take your business to the next level? Get in touch with our expert team today.
               </motion.p>
@@ -149,13 +160,15 @@ const Contact = () => {
           <motion.div 
             className="lg:w-1/2 p-8 lg:p-12"
             initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{amount:0.3, once:true}}
           >
             <motion.div
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
+              viewport={{amount:0.3, once:true}}
             >
               <h3 className="text-3xl font-bold text-gray-800 mb-2">Get In Touch</h3>
               <p className="text-gray-600 mb-8">Fill out the form below and we'll get back to you shortly.</p>
