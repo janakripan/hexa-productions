@@ -105,12 +105,12 @@ const Hero = () => {
         variants={containerVariant}
         className="absolute bottom-40 left-1/2 transform -translate-x-1/2 z-20 text-center px-4"
       >
-        <div className="max-w-5xl mx-auto mb-4">
+        <div className="lg:max-w-5xl mx-auto mb-4">
           <motion.h1
             variants={fadeInUp(0.4, 1)}
             initial="hidden"
             animate="visible"
-            className="text-white text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight"
+            className="text-white w-full whitespace-nowrap text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight"
           >
             <span className="inline mr-3">Crafting Your</span>
             <motion.span
