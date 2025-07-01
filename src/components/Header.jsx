@@ -7,7 +7,6 @@ import {
 } from "framer-motion";
 import { Menu, X, ChevronDown, Phone, Mail, MapPin } from "lucide-react";
 import { HeaderLinks } from "../constants/navLinks";
-import { useLocation } from "react-router";
 
 const logoUrl =
   "https://hexagroup.ae/wp-content/uploads/2024/03/cropped-cropped-HEXA-LOGO-new.pdf.png";
