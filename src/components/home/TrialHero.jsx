@@ -65,9 +65,55 @@ const upAndDown = {
   },
 };
 
+// Modern heading animation with staggered reveal
+const modernHeadingAnimation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.2,
+    },
+  },
+};
 
+const modernLineAnimation = {
+  hidden: {
+    opacity: 0,
+    y: 100,
+    rotateX: 90,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: {
+      duration: 1.2,
+      ease: [0.25, 0.46, 0.45, 0.94],
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
 
-const finalWord = "Dreams";
+// Glitch effect for "Dreams"
+const glitchAnimation = {
+  hidden: {
+    opacity: 0,
+    scale: 0.8,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+    },
+  },
+};
 
 const Hero = () => {
   const { scrollY } = useScroll();
@@ -89,10 +135,9 @@ const Hero = () => {
   ];
 
   return (
-    <div className="relative w-full min-h-screen h-fit overflow-hidden ">
+    <div className="relative w-full min-h-screen h-fit overflow-hidden">
       {/* Parallax Background */}
       <motion.div
-        // style={{ y }}
         className="absolute inset-0 w-full h-full"
       >
         <video
@@ -105,7 +150,7 @@ const Hero = () => {
           playsInline
         />
       </motion.div>
-ac
+
       {/* Dark overlay */}
       <div style={{y}} className="bg-black/70 absolute inset-0 z-10"></div>
 
@@ -177,99 +222,135 @@ ac
         </div>
       </motion.div>
 
-      {/* Main Content - Enhanced and Repositioned */}
+      {/* Main Content - Modern Eye-Catching Design */}
       <motion.div
-      style={{y}}
+        style={{y}}
         variants={containerVariant}
         className="absolute inset-0 flex flex-col justify-center items-center z-20 text-center px-4"
       >
-        {/* Main Headline */}
-        <div className="lg:max-w-6xl mx-auto mb-6 pt-8">
-          <motion.h1
-            variants={fadeInUp(0.4, 1)}
+        {/* Modern Headline */}
+        <div className="lg:max-w-7xl mx-auto mb-6 pt-8">
+          <motion.div
+            variants={modernHeadingAnimation}
             initial="hidden"
             animate="visible"
-            className="text-white w-full text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-tight mb-10 md:mb-6"
+            className="relative"
           >
-            <span className="block mb-2">Crafting Your</span>
-            <motion.span
-              className="relative inline-block"
-              initial="hidden"
-              animate="visible"
-              variants={containerVariant}
-            >
-              <motion.span
-                variants={containerVariant}
-                animate="visible"
-                initial="hidden"
-                className="bg-gradient-to-r from-red-600 via-red-500 to-red-400 bg-clip-text text-transparent font-extrabold"
-                style={{
-                  filter: "drop-shadow(0 0 30px rgba(239, 68, 68, 0.3))",
-                }}
+            {/* Background glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 via-purple-500/20 to-blue-500/20 blur-3xl rounded-full opacity-30"></div>
+            
+            <motion.h1 className="relative text-white font-black tracking-tight leading-[0.85] mb-8">
+              {/* First Line */}
+              <motion.div
+                variants={modernLineAnimation}
+                className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl mb-2 md:mb-4"
               >
-                {finalWord.split("").map((char, idx) => (
+                <span className="inline-block bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
+                  CRAFTING
+                </span>
+                <span className="inline-block ml-4 text-white/70 font-light">
+                  YOUR
+                </span>
+              </motion.div>
+
+              {/* Second Line - Eye-catching "Dreams" */}
+              <motion.div
+                variants={modernLineAnimation}
+                className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl relative"
+              >
+                <motion.span
+                  variants={glitchAnimation}
+                  initial="hidden"
+                  animate="visible"
+                  className="relative inline-block"
+                  whileHover={{
+                    scale: 1.05,
+                    textShadow: "0 0 40px rgba(239, 68, 68, 0.8)",
+                  }}
+                >
+                  {/* Main text with multiple gradients */}
+                  <span className="relative z-10 bg-gradient-to-r from-red-400 via-pink-500 to-purple-600 bg-clip-text text-transparent font-black">
+                    DREAMS
+                  </span>
+                  
+                  {/* Glitch layers */}
                   <motion.span
-                    key={idx}
-                    variants={letterVariant}
-                    className="inline-block"
+                    className="absolute top-0 left-0 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-black opacity-20"
+                    animate={{
+                      x: [0, 2, -2, 0],
+                      opacity: [0.2, 0.8, 0.2, 0.2],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                   >
-                    {char}
+                    DREAMS
                   </motion.span>
-                ))}
-              </motion.span>
+                  
+                  <motion.span
+                    className="absolute top-0 left-0 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent font-black opacity-20"
+                    animate={{
+                      x: [0, -2, 2, 0],
+                      opacity: [0.2, 0.6, 0.2, 0.2],
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.5,
+                    }}
+                  >
+                    DREAMS
+                  </motion.span>
+                </motion.span>
+
+                {/* Decorative elements */}
+                <motion.div
+                  initial={{ scale: 0, rotate: -45 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 1.5, duration: 0.8, type: "spring" }}
+                  className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-80"
+                />
+                <motion.div
+                  initial={{ scale: 0, rotate: 45 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 1.7, duration: 0.8, type: "spring" }}
+                  className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full opacity-80"
+                />
+              </motion.div>
+
+              {/* Animated underline */}
               <motion.div
                 initial={{ width: 0, opacity: 0 }}
-                animate={{ width: "100%", opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1, ease: "easeOut" }}
-                className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-red-500 to-transparent rounded-full"
+                animate={{ width: "60%", opacity: 1 }}
+                transition={{ delay: 2, duration: 1.5, ease: "easeOut" }}
+                className="mx-auto mt-4 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full"
               />
-            </motion.span>
-          </motion.h1>
+            </motion.h1>
+          </motion.div>
 
-          {/* Subtitle */}
+          {/* Modern Subtitle */}
           <motion.p
-            variants={fadeInUp(0.8, 0.8)}
+            variants={fadeInUp(1.8, 0.8)}
             initial="hidden"
             animate="visible"
-            className="text-white/90 text-lg md:text-xl lg:text-2xl font-light max-w-3xl mx-auto leading-relaxed mb-8"
+            className="text-white/90 text-lg md:text-xl lg:text-2xl font-light max-w-4xl mx-auto leading-relaxed mb-8"
           >
-            Where visionary design meets exceptional craftsmanship. We transform spaces into extraordinary experiences that inspire and endure.
+            <span className="bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+              Where visionary design meets exceptional craftsmanship.
+            </span>
+            <br className="hidden md:block" />
+            <span className="text-white/70">
+              We transform spaces into extraordinary experiences that inspire and endure.
+            </span>
           </motion.p>
-
-          {/* CTA Buttons */}
-          {/* <motion.div
-            variants={fadeInUp(1.0, 0.8)}
-            initial="hidden"
-            animate="visible"
-            className=" hidden md:flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(239, 68, 68, 0.3)" }}
-              whileTap={{ scale: 0.95 }}
-              className="group bg-gradient-to-r from-red-600 to-red-500 text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-3 shadow-lg hover:shadow-red-500/25 transition-all duration-300"
-            >
-              Explore Our Work
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
-            
-            <motion.button
-              whileHover={{ 
-                scale: 1.05, 
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                borderColor: "rgba(239, 68, 68, 0.5)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="group border-2 border-white/30 text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-3 backdrop-blur-sm hover:border-red-500/50 transition-all duration-300"
-            >
-              <Play className="w-5 h-5" />
-              Watch Our Story
-            </motion.button>
-          </motion.div> */}
         </div>
 
         {/* Stats Section */}
         <motion.div
-          variants={fadeInUp(1.2, 0.8)}
+          variants={fadeInUp(2.2, 0.8)}
           initial="hidden"
           animate="visible"
           className="flex flex-row gap-8 md:gap-12 lg:gap-16 justify-center items-center mb-4"
@@ -319,9 +400,6 @@ ac
           </span>
           <ChevronDown className="w-6 h-6 group-hover:text-red-400 transition-colors" />
         </motion.a>
-
-     
-      
       </motion.div>
     </div>
   );

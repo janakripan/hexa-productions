@@ -5,13 +5,15 @@ import Services from '../components/home/Services'
 import Features from '../components/home/Features'
 import AboutSection from '../components/home/AboutSection'
 import Contact from '../components/home/Contact'
+import TrialHero from '../components/home/TrialHero'
 
 
 const Home = () => {
   return (
     <div className='w-full min-h-screen  '>
      <section id='home' className='w-full h-screen relative overflow-hidden'>
-      <Hero/>
+      {/* <Hero/> */}
+      <TrialHero/>
      </section>
      <section id='summary' className='w-full  h-fit'>
         <Summary/>
