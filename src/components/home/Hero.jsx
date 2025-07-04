@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, Play, Sparkles, Star, ArrowRight, Award, Users, Building2 } from "lucide-react";
-import heroBanner from "../../../public/videos/hero banner video.mp4";
+import heroBanner from "../../../public/videos/hero banner video 2.mp4";
 import { containerVariant, letterVariant } from "../../Animations/animations";
 
 const fadeInUp = (delay = 0, duration = 0.8) => ({
