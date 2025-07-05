@@ -245,3 +245,14 @@
               ))}
             </motion.div>
           </motion.div>
+
+
+
+
+<motion.div
+          className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden bg-black"
+          variants={backgroundVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        ></motion.div>

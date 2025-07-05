@@ -152,13 +152,13 @@ const SplashScreen = ({ onFinish }) => {
     <AnimatePresence>
       {!isExiting && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden bg-black"
+          className="fixed inset-0  z-50 overflow-hidden bg-black"
           variants={backgroundVariants}
           initial="initial"
           animate="animate"
           exit="exit"
         >
-          <motion.img variants={imageVariants} src={hexaImage} alt="" className="" />
+          <motion.img variants={imageVariants} src={hexaImage} alt="" className="object-cover object-center h-screen lg:w-screen" />
         
         </motion.div>
       )}

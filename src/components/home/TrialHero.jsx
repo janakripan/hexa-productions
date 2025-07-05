@@ -142,7 +142,8 @@ const Hero = () => {
       >
         <video
           ref={videoRef}
-          src=" /public/videos/hero banner video 2.mp4?url"
+          // src=" /public/videos/hero banner video 2.mp4?url"
+          src={heroBanner}
           className="w-full h-full object-cover scale-110"
           autoPlay
           muted
